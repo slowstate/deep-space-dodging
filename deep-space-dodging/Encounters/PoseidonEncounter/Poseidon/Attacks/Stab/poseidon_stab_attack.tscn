@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://n03c1hqo8bh1"]
+
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.gd" id="1_glokw"]
+[ext_resource type="Texture2D" uid="uid://cseapshk7tnow" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.png" id="2_k1sfo"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/state_machine.gd" id="3_ym2bo"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/charge.gd" id="4_60qud"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/stab.gd" id="5_eu4qj"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/retract.gd" id="6_2ewpj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3oh5l"]
+
+[node name="PoseidonStabAttack" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_glokw")
+
+[node name="PositionOffset" type="Area2D" parent="."]
+position = Vector2(0, 90)
+collision_layer = 4
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PositionOffset"]
+texture = ExtResource("2_k1sfo")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PositionOffset"]
+polygon = PackedVector2Array(-6, 89.7, -10, 57.7, 4, 30.7, 5, 16.7, 18, -2.3, -4, -35.3, -24, -38.3, -49, -61.3, -49, -74.3, -31, -91.3, -37, -75.3, -28, -63.3, 22, -49.3, 50, -16.3, 34, 67.7, 40, 89.7)
+
+[node name="StateMachine" type="Node" parent="PositionOffset" node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("3_ym2bo")
+CURRENT_STATE = NodePath("Charge")
+
+[node name="Charge" type="Node" parent="PositionOffset/StateMachine"]
+script = ExtResource("4_60qud")
+
+[node name="Stab" type="Node" parent="PositionOffset/StateMachine"]
+script = ExtResource("5_eu4qj")
+
+[node name="Retract" type="Node" parent="PositionOffset/StateMachine"]
+script = ExtResource("6_2ewpj")
+
+[node name="IgnoreThis" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_3oh5l")
+disabled = true
+
+[connection signal="retracted" from="PositionOffset/StateMachine/Retract" to="." method="_on_retract_retracted"]
