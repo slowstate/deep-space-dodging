@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkplfc4s2mslk"]
+
+[ext_resource type="PackedScene" uid="uid://diui5swt03bhu" path="res://Player/player.tscn" id="1_3o0o0"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/encounter_poseidon.gd" id="1_t7sp0"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/playable_boundary.gd" id="2_3lvl7"]
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/attack_spawn_zones.gd" id="4_cm8cc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aft7f"]
+size = Vector2(500, 500)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gjpws"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bxt1p"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drhbv"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5ydr3"]
+normal = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fcel1"]
+font_size = 35
+
+[node name="EncounterPoseidon" type="Node2D"]
+script = ExtResource("1_t7sp0")
+
+[node name="PlayableBoundary" type="Area2D" parent="."]
+position = Vector2(960, 700)
+script = ExtResource("2_3lvl7")
+
+[node name="ColorRect" type="ColorRect" parent="PlayableBoundary"]
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+color = Color(0.4, 0, 0.580392, 1)
+
+[node name="PlayableArea" type="CollisionShape2D" parent="PlayableBoundary"]
+visible = false
+shape = SubResource("RectangleShape2D_aft7f")
+disabled = true
+
+[node name="DoNotEdit-RightBoundary" type="StaticBody2D" parent="PlayableBoundary"]
+position = Vector2(250, 0)
+
+[node name="RightBoundaryCollisionShape2D" type="CollisionShape2D" parent="PlayableBoundary/DoNotEdit-RightBoundary"]
+shape = SubResource("WorldBoundaryShape2D_gjpws")
+
+[node name="DoNotEdit-BottomBoundary" type="StaticBody2D" parent="PlayableBoundary"]
+position = Vector2(0, 250)
+
+[node name="BottomBoundaryCollisionShape2D" type="CollisionShape2D" parent="PlayableBoundary/DoNotEdit-BottomBoundary"]
+shape = SubResource("WorldBoundaryShape2D_bxt1p")
+
+[node name="DoNotEdit-LeftBoundary" type="StaticBody2D" parent="PlayableBoundary"]
+position = Vector2(-250, 0)
+
+[node name="LeftBoundaryCollisionShape2D" type="CollisionShape2D" parent="PlayableBoundary/DoNotEdit-LeftBoundary"]
+shape = SubResource("WorldBoundaryShape2D_drhbv")
+
+[node name="DoNotEdit-TopBoundary" type="StaticBody2D" parent="PlayableBoundary"]
+position = Vector2(0, -250)
+
+[node name="TopBoundaryCollisionShape2D" type="CollisionShape2D" parent="PlayableBoundary/DoNotEdit-TopBoundary"]
+shape = SubResource("WorldBoundaryShape2D_5ydr3")
+
+[node name="Player" parent="." instance=ExtResource("1_3o0o0")]
+position = Vector2(960, 700)
+motion_mode = 1
+
+[node name="AttackSpawner" type="Node2D" parent="."]
+position = Vector2(960, 700)
+script = ExtResource("4_cm8cc")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="EncounterTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShieldLabel" type="Label" parent="UI"]
+z_index = 2
+layout_mode = 0
+offset_left = 1122.0
+offset_top = 958.0
+offset_right = 1210.0
+offset_bottom = 1007.0
+text = "10🛡️"
+label_settings = SubResource("LabelSettings_fcel1")
+
+[node name="Right" type="ColorRect" parent="."]
+z_index = 1
+offset_left = 1210.0
+offset_top = 450.0
+offset_right = 1920.0
+offset_bottom = 950.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[node name="Bottom" type="ColorRect" parent="."]
+z_index = 1
+offset_top = 950.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[node name="Top" type="ColorRect" parent="."]
+z_index = 1
+offset_right = 1920.0
+offset_bottom = 450.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[node name="Left" type="ColorRect" parent="."]
+z_index = 1
+offset_top = 450.0
+offset_right = 710.0
+offset_bottom = 950.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[connection signal="timeout" from="AttackTimer" to="AttackSpawner" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="EncounterTimer" to="." method="_on_encounter_timer_timeout"]

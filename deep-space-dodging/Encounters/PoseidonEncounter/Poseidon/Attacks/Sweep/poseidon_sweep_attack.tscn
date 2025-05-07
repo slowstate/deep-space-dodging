@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv7dwuvd04rax"]
+
+[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Sweep/poseidon_sweep_attack.gd" id="1_g7eir"]
+[ext_resource type="Texture2D" uid="uid://dutepw30fqfk7" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Sweep/poseidon_sweep_attack.png" id="1_ims4b"]
+
+[node name="PoseidonSweepAttack" type="Node2D"]
+script = ExtResource("1_g7eir")
+
+[node name="PositionOffset" type="Area2D" parent="."]
+position = Vector2(0, 64)
+collision_layer = 4
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PositionOffset"]
+position = Vector2(-161, 41)
+rotation = 5.41052
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ims4b")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PositionOffset"]
+polygon = PackedVector2Array(58, -2, 50, -28, 32, -49, 3, -58, -38, -57, -83, -47, -126, -33, -161, -12, -189, 5, -227, 37, -260, 62, -294, 81, -339, 96, -362, 99, -384, 94, -391, 82, -383, 69, -391, 72, -397, 83, -397, 91, -388, 103, -366, 110, -337, 112, -290, 109, -234, 97, -138, 59, -82, 49, -47, 50, -11, 60, 12, 60, 37, 48, 54, 26)
