@@ -1,10 +1,6 @@
-extends Area2D
+extends Node2D
 
 @onready var position_offset: Area2D = $PositionOffset
-
-enum Direction {left, down, right, up}
-var direction: Direction
-
 
 func setup() -> void:
 	# TODO: Set up any variable config like damage, speed, etc.

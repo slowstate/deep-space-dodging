@@ -33,5 +33,6 @@ one_shot = true
 one_shot = true
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="ShieldRechargeStartTimer" to="." method="_on_shield_recharge_start_timer_timeout"]
 [connection signal="timeout" from="ShieldRechargeTimer" to="." method="_on_shield_recharge_timer_timeout"]

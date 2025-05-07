@@ -5,6 +5,11 @@ extends CharacterBody2D
 @onready var shield_recharge_start_timer: Timer = $ShieldRechargeStartTimer
 @onready var shield_recharge_timer: Timer = $ShieldRechargeTimer
 
+signal shield_recharging(is_regenerating: bool)
+signal shield_hit()
+
+enum Statuses {None, HitImmune, ShieldRecharging}
+var status: Statuses = Statuses.None
 const MOVE_SPEED = 30000.0
 const JUMP_VELOCITY = -400.0
 
@@ -39,10 +44,10 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		return
 	
 	current_shield -= 1
-	print("Shield hit: " + str(current_shield))
 	
 	hit_timer.wait_time = 2
 	hit_timer.start()
+	status = Statuses.HitImmune
 	
 	shield_recharge_timer.stop()
 	
@@ -51,12 +56,19 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	
 
 func _on_shield_recharge_start_timer_timeout() -> void:
+	status = Statuses.ShieldRecharging
+	current_shield +=1
 	shield_recharge_timer.wait_time = 1
 	shield_recharge_timer.start()
 
+
 func _on_shield_recharge_timer_timeout() -> void:
-	current_shield +=1
-	print("Shield recharge: " + str(current_shield))
-	if current_shield < MAX_SHIELD:
+	if current_shield >= MAX_SHIELD: status = Statuses.None
+	else:
+		current_shield +=1
 		shield_recharge_timer.wait_time = 1
 		shield_recharge_timer.start()
+
+
+func _on_hit_timer_timeout() -> void:
+	status = Statuses.None

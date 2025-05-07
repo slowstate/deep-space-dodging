@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @onready var position_offset: Area2D = $PositionOffset
 
@@ -9,7 +9,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	position_offset.rotation += deg_to_rad(45*delta)
+	position_offset.rotation += deg_to_rad(randi_range(45, 60)*delta)
 	if position_offset.rotation >= deg_to_rad(360):
 		queue_free()
 	

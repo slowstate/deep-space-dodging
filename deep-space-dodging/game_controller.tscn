@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpnwlyex4hmkd"]
-
-[ext_resource type="PackedScene" uid="uid://dkplfc4s2mslk" path="res://Encounters/PoseidonEncounter/encounter_poseidon.tscn" id="1_6aogg"]
-
-[node name="GameController" type="Node2D"]
-
-[node name="EncounterPoseidon" parent="." instance=ExtResource("1_6aogg")]

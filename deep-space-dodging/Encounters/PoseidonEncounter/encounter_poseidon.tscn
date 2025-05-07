@@ -34,9 +34,10 @@ offset_left = -250.0
 offset_top = -250.0
 offset_right = 250.0
 offset_bottom = 250.0
-color = Color(1, 1, 1, 0.027)
+color = Color(0.4, 0, 0.580392, 1)
 
 [node name="PlayableArea" type="CollisionShape2D" parent="PlayableBoundary"]
+visible = false
 shape = SubResource("RectangleShape2D_aft7f")
 disabled = true
 
@@ -75,7 +76,10 @@ script = ExtResource("4_cm8cc")
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-autostart = true
+
+[node name="EncounterTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -84,12 +88,42 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ShieldLabel" type="Label" parent="UI"]
+z_index = 2
 layout_mode = 0
-offset_left = 1371.0
-offset_top = 81.0
-offset_right = 1445.0
-offset_bottom = 104.0
+offset_left = 1122.0
+offset_top = 958.0
+offset_right = 1210.0
+offset_bottom = 1007.0
 text = "10🛡️"
 label_settings = SubResource("LabelSettings_fcel1")
 
+[node name="Right" type="ColorRect" parent="."]
+z_index = 1
+offset_left = 1210.0
+offset_top = 450.0
+offset_right = 1920.0
+offset_bottom = 950.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[node name="Bottom" type="ColorRect" parent="."]
+z_index = 1
+offset_top = 950.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[node name="Top" type="ColorRect" parent="."]
+z_index = 1
+offset_right = 1920.0
+offset_bottom = 450.0
+color = Color(0.192157, 0, 0.278431, 1)
+
+[node name="Left" type="ColorRect" parent="."]
+z_index = 1
+offset_top = 450.0
+offset_right = 710.0
+offset_bottom = 950.0
+color = Color(0.192157, 0, 0.278431, 1)
+
 [connection signal="timeout" from="AttackTimer" to="AttackSpawner" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="EncounterTimer" to="." method="_on_encounter_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://n03c1hqo8bh1"]
+[gd_scene load_steps=7 format=3 uid="uid://n03c1hqo8bh1"]
 
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.gd" id="1_glokw"]
 [ext_resource type="Texture2D" uid="uid://cseapshk7tnow" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.png" id="2_k1sfo"]
@@ -7,12 +7,8 @@
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/stab.gd" id="5_eu4qj"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/retract.gd" id="6_2ewpj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3oh5l"]
-
-[node name="PoseidonStabAttack" type="Area2D"]
+[node name="PoseidonStabAttack" type="Node2D"]
 scale = Vector2(2, 2)
-collision_layer = 4
-collision_mask = 0
 script = ExtResource("1_glokw")
 
 [node name="PositionOffset" type="Area2D" parent="."]
@@ -38,10 +34,5 @@ script = ExtResource("5_eu4qj")
 
 [node name="Retract" type="Node" parent="PositionOffset/StateMachine"]
 script = ExtResource("6_2ewpj")
-
-[node name="IgnoreThis" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_3oh5l")
-disabled = true
 
 [connection signal="retracted" from="PositionOffset/StateMachine/Retract" to="." method="_on_retract_retracted"]

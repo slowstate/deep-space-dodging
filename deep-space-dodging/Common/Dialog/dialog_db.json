@@ -1,0 +1,23 @@
+{
+	"introduction": [
+		"Current location is RA: 14h 30m 00s, Dec: -12° 00′ 00″, Distance: 5.2 billion light-years.",
+		"Closest Maelstrom bridge is 10 years away.",
+		"Preparing cryo-chamber."
+	],
+	"poseidon introduction": [
+		"INCOMING SIGNAL. 9.99 GHz. ORIGIN: PLTS-3.",
+		"Mayday, Mayday, Mayday. This is PLTS-3. My vessel is severely damaged.",
+		"I require immediate assist-"
+	],
+	"poseidon encounter": [
+		"COLOSSAL ENTITY INBOUND.",
+		"PREPARE FOR CONTACT."
+	],
+	"maelstrom bridge": [
+		"Destination: Maelstrom bridge.",
+		"Gravitational tide incoming, prepare for astroplaning."
+	],
+	"outro": [
+		"Current location is RA: 14h 30m 00s, Dec: -12° 00′ 00″, Distance: 5.2 billion light-years."
+	]
+}
