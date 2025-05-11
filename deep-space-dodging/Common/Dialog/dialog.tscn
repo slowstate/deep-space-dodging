@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crxuthvtr3hvh"]
+[gd_scene load_steps=7 format=3 uid="uid://crxuthvtr3hvh"]
 
 [ext_resource type="Script" path="res://Common/Dialog/dialog.gd" id="1_tchp8"]
 
@@ -9,17 +9,34 @@ font_weight = 550
 [sub_resource type="LabelSettings" id="LabelSettings_3d3dd"]
 font = SubResource("SystemFont_pxrgb")
 font_size = 25
+font_color = Color(0.290196, 0.964706, 0.14902, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_oi0xh"]
+font_names = PackedStringArray("Monospace")
+font_weight = 550
+
+[sub_resource type="LabelSettings" id="LabelSettings_2hdqe"]
+font = SubResource("SystemFont_oi0xh")
+font_size = 25
+font_color = Color(0.290196, 0.964706, 0.14902, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2a0u"]
 size = Vector2(1200, 250)
 
 [node name="Dialog" type="Area2D"]
-visible = false
 z_index = 5
 position = Vector2(960, 225)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_tchp8")
+
+[node name="DialogBorder" type="ColorRect" parent="."]
+offset_left = -605.0
+offset_top = -130.0
+offset_right = 605.0
+offset_bottom = 130.0
+mouse_filter = 2
+color = Color(0.290196, 0.964706, 0.14902, 1)
 
 [node name="DialogBackground" type="ColorRect" parent="."]
 offset_left = -600.0
@@ -27,7 +44,7 @@ offset_top = -125.0
 offset_right = 600.0
 offset_bottom = 125.0
 mouse_filter = 2
-color = Color(0.205117, 0.205117, 0.205117, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="DialogLabel" type="Label" parent="."]
 offset_left = -550.0
@@ -38,11 +55,21 @@ mouse_filter = 1
 label_settings = SubResource("LabelSettings_3d3dd")
 autowrap_mode = 2
 
+[node name="EllipsesLabel" type="Label" parent="."]
+visible = false
+offset_left = 532.0
+offset_top = 84.0
+offset_right = 577.0
+offset_bottom = 113.0
+text = "..."
+label_settings = SubResource("LabelSettings_2hdqe")
+
 [node name="LetterByLetterTimer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_a2a0u")
 
 [connection signal="timeout" from="LetterByLetterTimer" to="." method="_on_letter_by_letter_timer_timeout"]

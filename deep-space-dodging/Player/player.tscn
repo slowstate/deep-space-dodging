@@ -1,25 +1,28 @@
 [gd_scene load_steps=3 format=3 uid="uid://diui5swt03bhu"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7f6xr"]
-[ext_resource type="Texture2D" uid="uid://cghtj0xi576c" path="res://Player/player.png" id="1_jxdfd"]
+[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/Ship.png" id="2_2bi72"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 5
 script = ExtResource("1_7f6xr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_jxdfd")
+position = Vector2(1, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2bi72")
 
 [node name="CollisionBox" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-22, 25, 0, -26, 22, 25, 0, 14)
+visible = false
+polygon = PackedVector2Array(-3, -14, 0, -26, 3, -14, 16, -3, 16, 1, 11, -1, 9, 5, 6, 5, 6, 11, -6, 11, -6, 5, -9, 5, -11, -1, -16, 1, -16, -3)
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
-polygon = PackedVector2Array(-21, 24, 0, -24, 21, 24, 0, 13)
+polygon = PackedVector2Array(-3, -14, 0, -26, 3, -14, 16, -3, 16, 1, 11, -1, 9, 5, 6, 5, 6, 11, -6, 11, -6, 5, -9, 5, -11, -1, -16, 1, -16, -3)
 
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 2.0

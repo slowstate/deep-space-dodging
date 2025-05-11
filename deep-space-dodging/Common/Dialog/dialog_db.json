@@ -1,23 +1,50 @@
 {
 	"introduction": [
-		"Current location is RA: 14h 30m 00s, Dec: -12° 00′ 00″, Distance: 5.2 billion light-years.",
-		"Closest Maelstrom bridge is 10 years away.",
-		"Preparing cryo-chamber."
+		"Captain, our current location is Sector AGN-C.
+		
+		
+		> Find the nearest warp hole to get us home.",
+		"Locating the nearest Maelstrom bridge...",
+		"...",
+		"Successfully located a suitable Maelstrom bridge. This warp hole connects directly to our home system.",
+		"It will take approximately 10 years to arrive.",
+		"Would you like to initiate cryosleep?
+		
+		
+		> Do it.",
+		"Affirmative. Cryo-chamber is ready. Have a good rest, Captain."
 	],
 	"poseidon introduction": [
-		"INCOMING SIGNAL. 9.99 GHz. ORIGIN: PLTS-3.",
-		"Mayday, Mayday, Mayday. This is PLTS-3. My vessel is severely damaged.",
-		"I require immediate assist-"
+		"INCOMING SIGNAL. 9.99 GHz. ORIGIN: UNKNOWN VESSEL.",
+		"\"Mayday, Mayday, Mayday. My vessel is critically damaged.\"",
+		"\"Visibility is severely limited, there's something out there.\"",
+		"\"I require immediate assist-\""
 	],
 	"poseidon encounter": [
 		"COLOSSAL ENTITY INBOUND.",
 		"PREPARE FOR CONTACT."
 	],
+	"player killed": [
+		"WARNING. HULL HAS BEEN BREACHED. CABIN DEPRESSURISING.
+		
+		
+		> Send out distress signal.",
+		"\"Mayday, Mayday, Mayday. My vessel is critically damaged.\"",
+		"\"Visibility is severely limited, there's something out there.\"",
+		"\"I require immediate assist-\""
+	],
 	"maelstrom bridge": [
-		"Destination: Maelstrom bridge.",
-		"Gravitational tide incoming, prepare for astroplaning."
+		"Well done, Captain. We have arrived at the Maelstrom bridge.",
+		"A gravitational wave is imminent. This wave has sufficient amplitude to take us home.
+		
+		
+		> Let's go home."
 	],
 	"outro": [
-		"Current location is RA: 14h 30m 00s, Dec: -12° 00′ 00″, Distance: 5.2 billion light-years."
+		"Captain, our current location is Sector AGN-C.
+		
+		
+		> How is that possible? How are we back where we started?",
+		"Would you like me to locate the nearest Maelstrom bridge?"
 	]
 }

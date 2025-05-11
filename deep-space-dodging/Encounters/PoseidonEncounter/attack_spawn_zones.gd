@@ -81,7 +81,7 @@ func spawn_stab_attack():
 	if spawn_position.y >= playable_area.global_position.y + playable_area.shape.get_rect().size.y/2 - 50: y_rotation = 0
 	if spawn_position.y <= playable_area.global_position.y - playable_area.shape.get_rect().size.y/2 + 50: y_rotation = 180
 	if x_rotation > 0 && y_rotation > 0:
-		new_stab_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2)
+		new_stab_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2.0)
 	else: new_stab_attack.rotation = deg_to_rad(x_rotation + y_rotation)
 	new_stab_attack.add_to_group("attacks")
 	get_tree().root.add_child(new_stab_attack)
@@ -108,7 +108,7 @@ func spawn_sweep_attack():
 	if spawn_position.y >= playable_area.global_position.y + playable_area.shape.get_rect().size.y/2 - 50: y_rotation = 0
 	if spawn_position.y <= playable_area.global_position.y - playable_area.shape.get_rect().size.y/2 + 50: y_rotation = 180
 	if x_rotation > 0 && y_rotation > 0:
-		new_sweep_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2)
+		new_sweep_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2.0)
 	else: new_sweep_attack.rotation = deg_to_rad(x_rotation + y_rotation)
 	new_sweep_attack.add_to_group("attacks")
 	get_tree().root.add_child(new_sweep_attack)
