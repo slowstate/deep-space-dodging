@@ -20,6 +20,14 @@ extends Node2D
 @onready var fade_out_player_killed_timer: Timer = $FadeOutPlayerKilledTimer
 @onready var stars_particles: GPUParticles2D = $StarsParticles
 @onready var poseidon: Node2D = $Poseidon
+@onready var ambience_sfx: AudioStreamPlayer2D = $AmbienceSFX
+@onready var rumbling_sfx: AudioStreamPlayer2D = $RumblingSFX
+@onready var thrusters_sfx: AudioStreamPlayer2D = $ThrustersSFX
+@onready var text_sfx: AudioStreamPlayer2D = $TextSFX
+@onready var asteroid_sfx: AudioStreamPlayer2D = $AsteroidSFX
+@onready var stab_sfx: AudioStreamPlayer2D = $StabSFX
+@onready var poseidon_music: AudioStreamPlayer2D = $PoseidonMusic
+@onready var mayday_music: AudioStreamPlayer2D = $MaydayMusic
 
 
 const POSEIDON_STAB_ATTACK = preload("res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.tscn")
@@ -32,6 +40,7 @@ var player_killed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	mayday_music.play()
 	Dialog.dialog_complete.connect(on_dialog_complete)
 	Dialog.play_dialog("poseidon introduction")
 	shield_label.visible = false
@@ -110,6 +119,7 @@ func _on_encounter_fade_out_timer_timeout() -> void:
 	stars_p.radial_velocity_min = 0
 	stars_p.radial_velocity_max = 0
 	player_move_timer.start()
+	
 
 func _on_player_move_timer_timeout() -> void:
 	fade_out_victory_timer.start()
@@ -168,6 +178,7 @@ func spawn_random_attack():
 
 func spawn_stab_attack():
 	var new_stab_attack = POSEIDON_STAB_ATTACK.instantiate()
+	stab_sfx.play()
 	
 	# Pick a random position within the playable area
 	var spawn_position = random_spawn_location(playable_area)
@@ -222,6 +233,7 @@ func spawn_sweep_attack():
 
 func spawn_asteroid_attack():
 	var new_asteroid_attack = POSEIDON_ASTEROID_ATTACK.instantiate()
+	asteroid_sfx.play()
 	
 	# Pick two random positions within the playable area
 	var start_position = random_spawn_location(playable_area)
@@ -246,3 +258,7 @@ func spawn_asteroid_attack():
 	new_asteroid_attack.linear_velocity = (end_position - start_position).normalized() * 300
 	new_asteroid_attack.add_to_group("attacks")
 	add_child(new_asteroid_attack)
+
+
+func _on_mayday_music_finished() -> void:
+	poseidon_music.play()

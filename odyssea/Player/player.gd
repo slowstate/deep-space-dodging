@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var shield_recharge_start_timer: Timer = $ShieldRechargeStartTimer
 @onready var shield_recharge_timer: Timer = $ShieldRechargeTimer
 @onready var collision_box: CollisionPolygon2D = $CollisionBox
+@onready var player_hit_sfx: AudioStreamPlayer2D = $PlayerHitSFX
 
 signal killed
 
@@ -55,6 +56,7 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	if current_shield <= 0:
 		killed.emit()
 	
+	player_hit_sfx.play()
 	current_shield -= 1
 	
 	hit_timer.wait_time = 2
