@@ -51,8 +51,6 @@ initial_velocity_min = 0.5
 initial_velocity_max = 1.0
 angular_velocity_min = -1.60933e-05
 angular_velocity_max = 20.0
-radial_velocity_min = -2.23517e-05
-radial_velocity_max = -2.23517e-05
 gravity = Vector3(0, 0, 0)
 scale_max = 5.0
 color_ramp = SubResource("GradientTexture1D_i0p2f")
@@ -196,7 +194,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="EncounterTimer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 3.0
 one_shot = true
 
 [node name="AttackFadeOutTimer" type="Timer" parent="."]

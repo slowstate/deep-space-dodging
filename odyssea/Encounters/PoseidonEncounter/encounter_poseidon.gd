@@ -32,9 +32,6 @@ var player_killed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var stars_p: ParticleProcessMaterial = stars_particles.process_material
-	stars_p.radial_velocity_min = -5
-	stars_p.radial_velocity_max = -5
 	Dialog.dialog_complete.connect(on_dialog_complete)
 	Dialog.play_dialog("poseidon introduction")
 	shield_label.visible = false
@@ -83,8 +80,6 @@ func on_dialog_complete(dialog_key: String):
 			fog_shader_fade_in_timer.stop()
 			fog_shader.set_opacity(1.0)
 			poseidon.modulate.a = 1.0
-			if !poseidon_stab_attack == null: poseidon_stab_attack.queue_free()
-			unknown_ship.visible = false
 			attack_spawner.begin_spawning()
 			shield_label.visible = true
 			shield_sprite.visible = true
@@ -101,6 +96,9 @@ func _on_encounter_timer_timeout() -> void:
 	if !player_killed:
 		attack_timer.stop()
 		encounter_fade_out_timer.start()
+		var stars_p: ParticleProcessMaterial = stars_particles.process_material
+		stars_p.radial_velocity_min = -15
+		stars_p.radial_velocity_max = -10
 		player.enable_hitbox(false)
 		player.enable_collision(false)
 		player.enable_controls(false)
@@ -108,6 +106,9 @@ func _on_encounter_timer_timeout() -> void:
 		shield_sprite.visible = false
 
 func _on_encounter_fade_out_timer_timeout() -> void:
+	var stars_p: ParticleProcessMaterial = stars_particles.process_material
+	stars_p.radial_velocity_min = 0
+	stars_p.radial_velocity_max = 0
 	player_move_timer.start()
 
 func _on_player_move_timer_timeout() -> void:
