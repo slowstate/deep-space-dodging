@@ -3,6 +3,7 @@ extends Area2D
 @onready var dialog_background: ColorRect = $DialogBackground
 @onready var dialog_label: Label = $DialogLabel
 @onready var letter_by_letter_timer: Timer = $LetterByLetterTimer
+@onready var ellipses_label: Label = $EllipsesLabel
 
 signal dialog_complete(dialog_key: String)
 
@@ -16,12 +17,12 @@ const DIALOG_DB = preload("res://Common/Dialog/dialog_db.json")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("player_accept"):
+	if Input.is_action_just_pressed("player_accept") || Input.is_action_just_pressed("player_mouse_accept"):
 		if current_dialog_key != "":
 			if dialog_label.visible_characters < current_dialog_line.length(): # If displaying letter by letter then skip
 				dialog_label.visible_characters = current_dialog_line.length()
@@ -38,8 +39,13 @@ func _process(delta: float) -> void:
 	t += delta
 	if t >= 0.01: # Display a character every 10 ms
 		if dialog_label.visible_characters < current_dialog_line.length():
+			if current_dialog_line.contains("\""): dialog_label.label_settings.font_color = Color.WHITE
+			else: dialog_label.label_settings.font_color = Color(0.29, 0.965, 0.149)
 			dialog_label.visible_characters += 1
 			t = 0.0
+			ellipses_label.visible = false
+		else:
+			ellipses_label.visible = true
 
 func play_dialog(dialog_key: String):
 	current_dialog_key = dialog_key
@@ -47,4 +53,6 @@ func play_dialog(dialog_key: String):
 	current_dialog_line = current_dialog_sequence.pop_front()
 	dialog_label.visible_characters = 0
 	dialog_label.text = current_dialog_line
+	ellipses_label.visible = false
 	visible = true
+	

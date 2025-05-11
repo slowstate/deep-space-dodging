@@ -1,10 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdknogxi3fv0m"]
 
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Asteroid/poseidon_asteroid_attack.gd" id="1_tow7u"]
-[ext_resource type="Texture2D" uid="uid://bo704u42d22a5" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Asteroid/poseidon_asteroid_attack.png" id="2_5w40b"]
+[ext_resource type="Texture2D" uid="uid://cux1fs5qapcgr" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Asteroid/poseidon_asteroid_attack.png" id="2_xpm3o"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7f6l4"]
-radius = 222.225
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efpbu"]
+radius = 12.034
+height = 34.0567
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7d8qw"]
 
@@ -17,18 +18,18 @@ angular_damp_mode = 1
 script = ExtResource("1_tow7u")
 
 [node name="PositionOffset" type="Area2D" parent="."]
-scale = Vector2(0.1, 0.1)
 collision_layer = 4
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="PositionOffset"]
-texture = ExtResource("2_5w40b")
+texture = ExtResource("2_xpm3o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PositionOffset"]
-shape = SubResource("CircleShape2D_7f6l4")
+rotation = -0.69115
+shape = SubResource("CapsuleShape2D_efpbu")
 
 [node name="DespawnTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 autostart = true
 

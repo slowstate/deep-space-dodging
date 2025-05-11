@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddeaphhd3wcq8"
-path="res://.godot/imported/poseidon_stab_attack.png-a7bf97f6e8034f5224f35d9c19f3a60f.ctex"
+uid="uid://dl8yem5hvdoh2"
+path="res://.godot/imported/Ship.png-3e3dc555a4ce5d282c4f8107f96ba4b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.png"
-dest_files=["res://.godot/imported/poseidon_stab_attack.png-a7bf97f6e8034f5224f35d9c19f3a60f.ctex"]
+source_file="res://Player/Ship.png"
+dest_files=["res://.godot/imported/Ship.png-3e3dc555a4ce5d282c4f8107f96ba4b4.ctex"]
 
 [params]
 
