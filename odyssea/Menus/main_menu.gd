@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var chevron_label: Label = $MenuBox/ChevronLabel
 @onready var chevron_timer: Timer = $MenuBox/ChevronTimer
-@onready var button_sfx: AudioStreamPlayer2D = $MenuBox/ButtonSFX
 
 const INTRODUCTION = preload("res://Events/Introduction/introduction.tscn")
 
@@ -11,7 +10,7 @@ var selectedMenuItem: MenuItem = MenuItem.BeginJourney
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	AudioPlayer.play_sound("SpaceMusic", 10.0, 10.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,10 +35,9 @@ func _process(delta: float) -> void:
 
 
 func _on_start_button_pressed() -> void:
-	button_sfx.play()
+	AudioPlayer.stop_sound("SpaceMusic")
 	get_tree().change_scene_to_packed(INTRODUCTION)
 
 
 func _on_exit_button_pressed() -> void:
-	button_sfx.play()
 	get_tree().quit()

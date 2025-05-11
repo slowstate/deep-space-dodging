@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dkplfc4s2mslk"]
+[gd_scene load_steps=26 format=3 uid="uid://dkplfc4s2mslk"]
 
 [ext_resource type="PackedScene" uid="uid://diui5swt03bhu" path="res://Player/player.tscn" id="1_3o0o0"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/encounter_poseidon.gd" id="1_t7sp0"]
@@ -12,16 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://n03c1hqo8bh1" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.tscn" id="7_56rb6"]
 [ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/Ship.png" id="8_rfh22"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/fade_out_rect.gd" id="10_jcw7n"]
-[ext_resource type="AudioStream" uid="uid://ouk8qsqq5y6e" path="res://Audio/SFX/PlayerHit.mp3" id="11_m2avu"]
+[ext_resource type="AudioStream" uid="uid://b8kuysrstc8t" path="res://Audio/SFX/PlayerHit.mp3" id="11_m2avu"]
 [ext_resource type="Texture2D" uid="uid://bc5nt1peagrkq" path="res://Player/Shield.png" id="12_14fsk"]
-[ext_resource type="AudioStream" uid="uid://d0hi1773oafdo" path="res://Audio/Music/Poseidon.wav" id="15_mwy4y"]
-[ext_resource type="AudioStream" uid="uid://bde0ah2n4o1rt" path="res://Audio/Music/Mayday.wav" id="16_7ao6g"]
-[ext_resource type="AudioStream" uid="uid://qh7n36hkpqh" path="res://Audio/SFX/Rumbling.mp3" id="17_dv558"]
-[ext_resource type="AudioStream" uid="uid://q6vf384c30sg" path="res://Audio/SFX/SpaceAmbience.mp3" id="18_1x1wv"]
-[ext_resource type="AudioStream" uid="uid://cxjcpm8wmwf8x" path="res://Audio/SFX/Thrusters.mp3" id="19_wnp02"]
-[ext_resource type="AudioStream" uid="uid://8w3nu7o6mful" path="res://Audio/SFX/Text.wav" id="20_famyb"]
-[ext_resource type="AudioStream" uid="uid://cjyoui07562ng" path="res://Audio/SFX/Asteroid.mp3" id="21_1hvi3"]
-[ext_resource type="AudioStream" uid="uid://bochhtdm0jn5p" path="res://Audio/SFX/Stab.mp3" id="22_bkjin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aft7f"]
 size = Vector2(500, 500)
@@ -260,29 +252,9 @@ offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 script = ExtResource("10_jcw7n")
 
-[node name="PoseidonMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_mwy4y")
-
-[node name="MaydayMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("16_7ao6g")
-
-[node name="RumblingSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("17_dv558")
-
-[node name="AmbienceSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("18_1x1wv")
-
-[node name="ThrustersSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("19_wnp02")
-
-[node name="TextSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("20_famyb")
-
-[node name="AsteroidSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("21_1hvi3")
-
-[node name="StabSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("22_bkjin")
+[node name="Stage2AttackTimer" type="Timer" parent="."]
+wait_time = 33.67
+one_shot = true
 
 [connection signal="timeout" from="UnknownShipGrabTimer" to="." method="_on_unknown_ship_grab_timer_timeout"]
 [connection signal="killed" from="Player" to="." method="_on_player_killed"]
@@ -292,4 +264,4 @@ stream = ExtResource("22_bkjin")
 [connection signal="timeout" from="PlayerMoveTimer" to="." method="_on_player_move_timer_timeout"]
 [connection signal="timeout" from="FadeOutVictoryTimer" to="." method="_on_fade_out_victory_timer_timeout"]
 [connection signal="timeout" from="FadeOutPlayerKilledTimer" to="." method="_on_fade_out_player_killed_timer_timeout"]
-[connection signal="finished" from="MaydayMusic" to="." method="_on_mayday_music_finished"]
+[connection signal="timeout" from="Stage2AttackTimer" to="." method="_on_stage_2_attack_timer_timeout"]

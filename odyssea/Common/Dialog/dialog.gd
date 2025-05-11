@@ -23,6 +23,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("player_accept") || Input.is_action_just_pressed("player_mouse_accept"):
+		AudioPlayer.play_sound("ButtonClickSFX")
 		if current_dialog_key != "":
 			if dialog_label.visible_characters < current_dialog_line.length(): # If displaying letter by letter then skip
 				dialog_label.visible_characters = current_dialog_line.length()
@@ -30,6 +31,7 @@ func _process(delta: float) -> void:
 				current_dialog_line = current_dialog_sequence.pop_front()
 				dialog_label.visible_characters = 0
 				dialog_label.text = current_dialog_line
+				AudioPlayer.play_sound("TextSFX")
 			else: # If no lines left to display then close dialog
 				var completed_dialog_key = current_dialog_key
 				current_dialog_key = ""
@@ -45,9 +47,11 @@ func _process(delta: float) -> void:
 			t = 0.0
 			ellipses_label.visible = false
 		else:
+			AudioPlayer.stop_sound("TextSFX")
 			ellipses_label.visible = true
 
 func play_dialog(dialog_key: String):
+	AudioPlayer.play_sound("TextSFX")
 	current_dialog_key = dialog_key
 	current_dialog_sequence = DIALOG_DB.data[current_dialog_key].duplicate()
 	current_dialog_line = current_dialog_sequence.pop_front()

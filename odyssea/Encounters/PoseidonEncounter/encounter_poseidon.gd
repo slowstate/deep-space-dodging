@@ -20,15 +20,7 @@ extends Node2D
 @onready var fade_out_player_killed_timer: Timer = $FadeOutPlayerKilledTimer
 @onready var stars_particles: GPUParticles2D = $StarsParticles
 @onready var poseidon: Node2D = $Poseidon
-@onready var ambience_sfx: AudioStreamPlayer2D = $AmbienceSFX
-@onready var rumbling_sfx: AudioStreamPlayer2D = $RumblingSFX
-@onready var thrusters_sfx: AudioStreamPlayer2D = $ThrustersSFX
-@onready var text_sfx: AudioStreamPlayer2D = $TextSFX
-@onready var asteroid_sfx: AudioStreamPlayer2D = $AsteroidSFX
-@onready var stab_sfx: AudioStreamPlayer2D = $StabSFX
-@onready var poseidon_music: AudioStreamPlayer2D = $PoseidonMusic
-@onready var mayday_music: AudioStreamPlayer2D = $MaydayMusic
-
+@onready var stage_2_attack_timer: Timer = $Stage2AttackTimer
 
 const POSEIDON_STAB_ATTACK = preload("res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.tscn")
 const POSEIDON_SWEEP_ATTACK = preload("res://Encounters/PoseidonEncounter/Poseidon/Attacks/Sweep/poseidon_sweep_attack.tscn")
@@ -40,14 +32,13 @@ var player_killed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	mayday_music.play()
 	Dialog.dialog_complete.connect(on_dialog_complete)
 	Dialog.play_dialog("poseidon introduction")
 	shield_label.visible = false
 	shield_sprite.visible = false
 	poseidon_stab_attack.visible = false
 	poseidon_stab_attack.process_mode = Node.PROCESS_MODE_DISABLED # The poseidon_stab_attack for the intro is an actual attack; this line pauses it until later
-
+	AudioPlayer.play_sound("MaydayMusic", 10.0, 10.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -93,6 +84,9 @@ func on_dialog_complete(dialog_key: String):
 			shield_label.visible = true
 			shield_sprite.visible = true
 			encounter_timer.start() # Encounter time set on $EncounterTimer node
+			AudioPlayer.stop_sound("MaydayMusic")
+			AudioPlayer.play_sound("PoseidonMusic", 10.0, 10.0)
+			stage_2_attack_timer.start()
 		"player killed":
 			fade_out_player_killed_timer.start()
 			attack_timer.stop()
@@ -113,18 +107,22 @@ func _on_encounter_timer_timeout() -> void:
 		player.enable_controls(false)
 		shield_label.visible = false
 		shield_sprite.visible = false
+		AudioPlayer.play_sound("RumblingSFX", 10.0, 10.0)
 
 func _on_encounter_fade_out_timer_timeout() -> void:
 	var stars_p: ParticleProcessMaterial = stars_particles.process_material
 	stars_p.radial_velocity_min = 0
 	stars_p.radial_velocity_max = 0
 	player_move_timer.start()
+	AudioPlayer.stop_sound("RumblingSFX")
+	AudioPlayer.play_sound("ThrustersSFX")
 	
-
 func _on_player_move_timer_timeout() -> void:
 	fade_out_victory_timer.start()
 
 func _on_fade_out_victory_timer_timeout() -> void:
+	AudioPlayer.stop_sound("PoseidonMusic")
+	AudioPlayer.stop_sound("ThrustersSFX")
 	get_tree().change_scene_to_packed(MAELSTROM_BRIDGE)
 
 func _on_player_killed() -> void:
@@ -168,7 +166,13 @@ func _on_attack_timer_timeout() -> void:
 		spawn_random_attack()
 	attack_timer.start()
 
-
+func _on_stage_2_attack_timer_timeout() -> void:
+	spawn_stab_attack()
+	spawn_stab_attack()
+	spawn_stab_attack()
+	spawn_stab_attack()
+	spawn_stab_attack()
+	
 func spawn_random_attack():
 	match randi_range(0,2):
 		0: spawn_stab_attack()
@@ -178,7 +182,6 @@ func spawn_random_attack():
 
 func spawn_stab_attack():
 	var new_stab_attack = POSEIDON_STAB_ATTACK.instantiate()
-	stab_sfx.play()
 	
 	# Pick a random position within the playable area
 	var spawn_position = random_spawn_location(playable_area)
@@ -233,7 +236,6 @@ func spawn_sweep_attack():
 
 func spawn_asteroid_attack():
 	var new_asteroid_attack = POSEIDON_ASTEROID_ATTACK.instantiate()
-	asteroid_sfx.play()
 	
 	# Pick two random positions within the playable area
 	var start_position = random_spawn_location(playable_area)
@@ -258,7 +260,3 @@ func spawn_asteroid_attack():
 	new_asteroid_attack.linear_velocity = (end_position - start_position).normalized() * 300
 	new_asteroid_attack.add_to_group("attacks")
 	add_child(new_asteroid_attack)
-
-
-func _on_mayday_music_finished() -> void:
-	poseidon_music.play()

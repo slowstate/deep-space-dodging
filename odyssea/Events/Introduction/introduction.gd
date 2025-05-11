@@ -11,6 +11,8 @@ const ENCOUNTER_POSEIDON = preload("res://Encounters/PoseidonEncounter/encounter
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	AudioPlayer.play_sound("VoidMusic", 10.0, 10.0)
+	AudioPlayer.play_sound("SpaceAmbienceSFX")
 	fade_in_timer.start()
 	Dialog.dialog_complete.connect(on_dialog_complete)
 
@@ -32,4 +34,5 @@ func on_dialog_complete(dialog_key: String) -> void:
 
 
 func _on_fade_out_timer_timeout() -> void:
+	AudioPlayer.stop_sound("VoidMusic")
 	get_tree().change_scene_to_packed(ENCOUNTER_POSEIDON)

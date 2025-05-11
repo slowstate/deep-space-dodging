@@ -18,6 +18,7 @@ config/icon="res://Player/Ship.png"
 [autoload]
 
 Dialog="*res://Common/Dialog/dialog.tscn"
+AudioPlayer="*res://Common/AudioPlayer/AudioPlayer.tscn"
 
 [display]
 

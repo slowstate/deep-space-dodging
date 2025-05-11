@@ -54,8 +54,10 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		return
 	
 	if current_shield <= 0:
+		AudioPlayer.play_sound("ExplosionSFX", 5.0, 5.0)
 		killed.emit()
-	
+	else:
+		AudioPlayer.play_sound("PlayerHitSFX", -10.0, -10.0)
 	player_hit_sfx.play()
 	current_shield -= 1
 	

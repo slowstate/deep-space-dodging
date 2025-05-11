@@ -11,7 +11,7 @@ const OUTRO = preload("res://Events/Outro/outro.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Dialog.dialog_complete.connect(on_dialog_complete)
-
+	AudioPlayer.play_sound("MaelstromMusic", 10.0, 10.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -31,4 +31,5 @@ func on_dialog_complete(dialog_key: String) -> void:
 			fade_out_timer.start()
 
 func _on_fade_out_timer_timeout() -> void:
+	AudioPlayer.stop_sound("MaestromMusic")
 	get_tree().change_scene_to_packed(OUTRO)
