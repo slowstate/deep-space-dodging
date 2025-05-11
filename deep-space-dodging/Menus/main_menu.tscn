@@ -196,14 +196,15 @@ label_settings = SubResource("LabelSettings_7jakx")
 script = ExtResource("2_w8s8c")
 
 [node name="ControlsLabel" type="RichTextLabel" parent="MenuBox"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 210.0
 offset_right = 540.0
 offset_bottom = 237.0
 theme_override_colors/default_color = Color(0.290196, 0.964706, 0.14902, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_beb17")
-theme_override_font_sizes/normal_font_size = 22
-text = "Pilot your ship using WASD or arrow keys"
+theme_override_font_sizes/normal_font_size = 21
+text = "Pilot your vessel using WASD or arrow keys"
 
 [connection signal="pressed" from="MenuBox/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MenuBox/ExitButton" to="." method="_on_exit_button_pressed"]
