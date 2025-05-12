@@ -24,6 +24,7 @@ const MAX_SHIELD = 5
 var current_shield = MAX_SHIELD
 var hitbox_enabled = true
 var controls_enabled = true
+var shield_recharge_enabled = true
 var is_killed = false
 var original_position = position
 var sprite_hitstun_gradient: GradientTexture1D
@@ -94,28 +95,32 @@ func _on_hit_box_area_entered(_area: Area2D) -> void:
 		shield_recharge_timer.stop()
 
 func _on_hit_timer_timeout() -> void:
-	status = Statuses.None
-	
-	if current_shield > 0:
-		sprite_hitstun_gradient.gradient.set_color(0, Color.WHITE)
-	else:
-		sprite_hitstun_gradient.gradient.set_color(0, Color.ORANGE)
-	shield_recharge_start_timer.start(5)
+	if shield_recharge_enabled:
+		status = Statuses.None
+		
+		if current_shield > 0:
+			sprite_hitstun_gradient.gradient.set_color(0, Color.WHITE)
+		else:
+			sprite_hitstun_gradient.gradient.set_color(0, Color.ORANGE)
+
+		shield_recharge_start_timer.start(5)
 	
 func _on_shield_recharge_start_timer_timeout() -> void:
-	status = Statuses.ShieldRecharging
-	sprite_hitstun_gradient.gradient.set_color(0, Color.LIGHT_SKY_BLUE)
-	current_shield +=1
-	shield_recharge_timer.start(1)
+	if shield_recharge_enabled:
+		status = Statuses.ShieldRecharging
+		sprite_hitstun_gradient.gradient.set_color(0, Color.LIGHT_SKY_BLUE)
+		current_shield +=1
+		shield_recharge_timer.start(1)
 
 
 func _on_shield_recharge_timer_timeout() -> void:
-	if current_shield >= MAX_SHIELD:
-		status = Statuses.None
-		sprite_hitstun_gradient.gradient.set_color(0, Color.WHITE)
-	else:
-		current_shield +=1
-		shield_recharge_timer.start(1)
+	if shield_recharge_enabled:
+		if current_shield >= MAX_SHIELD:
+			status = Statuses.None
+			sprite_hitstun_gradient.gradient.set_color(0, Color.WHITE)
+		else:
+			current_shield +=1
+			shield_recharge_timer.start(1)
 
 
 func enable_hitbox(is_enabled: bool):
@@ -126,6 +131,11 @@ func enable_collision(is_enabled: bool):
 
 func enable_controls(is_enabled: bool):
 	controls_enabled = is_enabled
+
+func stop_shield_recharge():
+	shield_recharge_enabled = false
+	shield_recharge_start_timer.stop()
+	shield_recharge_timer.stop()
 
 func enable_thruster_particles(is_enabled: bool, particle_amount_ratio: float = 1.0):
 	particle_amount_ratio = clamp(particle_amount_ratio, 0.0, 1.0)

@@ -100,6 +100,7 @@ func _on_encounter_timer_timeout() -> void:
 	player.enable_hitbox(false)
 	player.enable_collision(false)
 	player.enable_controls(false)
+	player.stop_shield_recharge()
 	shield_visible(false)
 	fog_and_attack_fade_out_timer.start()
 
