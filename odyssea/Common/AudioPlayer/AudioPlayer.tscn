@@ -1,0 +1,63 @@
+[gd_scene load_steps=16 format=3 uid="uid://dsldyqtp7lwmb"]
+
+[ext_resource type="Script" path="res://Common/AudioPlayer/audio_player.gd" id="1_sp1qk"]
+[ext_resource type="AudioStream" uid="uid://bde0ah2n4o1rt" path="res://Audio/Music/Mayday.wav" id="2_mrb71"]
+[ext_resource type="AudioStream" uid="uid://d0hi1773oafdo" path="res://Audio/Music/Poseidon.wav" id="3_gwger"]
+[ext_resource type="AudioStream" uid="uid://oav1auffl5o2" path="res://Audio/Music/Space.wav" id="4_d8t3e"]
+[ext_resource type="AudioStream" uid="uid://1m2gkh556sth" path="res://Audio/Music/Void.wav" id="5_7iosr"]
+[ext_resource type="AudioStream" uid="uid://cjyoui07562ng" path="res://Audio/SFX/Asteroid.mp3" id="6_qfsb7"]
+[ext_resource type="AudioStream" uid="uid://bfudgep65onup" path="res://Audio/Music/Maelstrom.wav" id="6_sgk7v"]
+[ext_resource type="AudioStream" uid="uid://brhq7q785ibuk" path="res://Audio/SFX/ButtonClick.mp3" id="7_3byms"]
+[ext_resource type="AudioStream" uid="uid://dh5lmie0m6gxe" path="res://Audio/SFX/Explosion.mp3" id="8_k1awx"]
+[ext_resource type="AudioStream" uid="uid://b8kuysrstc8t" path="res://Audio/SFX/PlayerHit.mp3" id="9_7eley"]
+[ext_resource type="AudioStream" uid="uid://qh7n36hkpqh" path="res://Audio/SFX/Rumbling.mp3" id="10_vrr3w"]
+[ext_resource type="AudioStream" uid="uid://q6vf384c30sg" path="res://Audio/SFX/SpaceAmbience.mp3" id="11_rwh44"]
+[ext_resource type="AudioStream" uid="uid://bochhtdm0jn5p" path="res://Audio/SFX/Stab.mp3" id="12_hci40"]
+[ext_resource type="AudioStream" uid="uid://d24hwd5sf6y3n" path="res://Audio/SFX/Text.mp3" id="13_23dmq"]
+[ext_resource type="AudioStream" uid="uid://cxjcpm8wmwf8x" path="res://Audio/SFX/Thrusters.mp3" id="14_dylwr"]
+
+[node name="AudioPlayer" type="Node2D"]
+script = ExtResource("1_sp1qk")
+
+[node name="SpaceMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_d8t3e")
+
+[node name="VoidMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7iosr")
+
+[node name="MaydayMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_mrb71")
+
+[node name="PoseidonMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gwger")
+
+[node name="MaelstromMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_sgk7v")
+
+[node name="AsteroidSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_qfsb7")
+
+[node name="ButtonClickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_3byms")
+
+[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_k1awx")
+
+[node name="PlayerHitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_7eley")
+
+[node name="RumblingSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_vrr3w")
+
+[node name="SpaceAmbienceSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_rwh44")
+volume_db = 1.0
+
+[node name="StabSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_hci40")
+
+[node name="TextSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_23dmq")
+
+[node name="ThrustersSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_dylwr")

@@ -1,7 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cli47i1rl5e7h"]
+[gd_scene load_steps=17 format=3 uid="uid://cli47i1rl5e7h"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_6jmc1"]
+[ext_resource type="FontFile" uid="uid://2q0n6dvgr2n3" path="res://Common/Fonts/constan.ttf" id="2_cvrqq"]
+[ext_resource type="FontFile" uid="uid://d30lsvvnwjsg3" path="res://Common/Fonts/courbd.ttf" id="2_p3svu"]
 [ext_resource type="Script" path="res://Menus/start_chevron_label.gd" id="2_w8s8c"]
+[ext_resource type="FontFile" uid="uid://07ehdcxnx4n6" path="res://Common/Fonts/courbi.ttf" id="5_wtkrs"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4un3s"]
 particles_animation = true
@@ -31,11 +34,8 @@ scale_max = 5.0
 color_ramp = SubResource("GradientTexture1D_84wtd")
 anim_offset_max = 1.0
 
-[sub_resource type="SystemFont" id="SystemFont_rg1os"]
-font_names = PackedStringArray("Constantia")
-
 [sub_resource type="FontVariation" id="FontVariation_jtvjw"]
-base_font = SubResource("SystemFont_rg1os")
+base_font = ExtResource("2_cvrqq")
 spacing_glyph = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_q00kr"]
@@ -45,42 +45,21 @@ shadow_size = 11
 shadow_color = Color(3.85046e-07, 0.379517, 0.204635, 1)
 shadow_offset = Vector2(7, 3)
 
-[sub_resource type="SystemFont" id="SystemFont_dvon3"]
-font_names = PackedStringArray("Monospace")
-font_weight = 550
-
 [sub_resource type="LabelSettings" id="LabelSettings_6wime"]
-font = SubResource("SystemFont_dvon3")
+font = ExtResource("2_p3svu")
 font_size = 25
-font_color = Color(0.290196, 0.964706, 0.14902, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_l28s4"]
-font_names = PackedStringArray("Monospace")
-font_weight = 550
+font_color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2iauo"]
-
-[sub_resource type="SystemFont" id="SystemFont_34wrt"]
-font_names = PackedStringArray("Monospace")
-font_weight = 550
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w7vye"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7qen"]
 
-[sub_resource type="SystemFont" id="SystemFont_gcn0r"]
-font_names = PackedStringArray("Monospace")
-font_weight = 550
-
 [sub_resource type="LabelSettings" id="LabelSettings_7jakx"]
-font = SubResource("SystemFont_gcn0r")
+font = ExtResource("2_p3svu")
 font_size = 25
-font_color = Color(0.290196, 0.964706, 0.14902, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_beb17"]
-font_names = PackedStringArray("Monospace")
-font_italic = true
-font_weight = 550
+font_color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_6jmc1")
@@ -119,7 +98,7 @@ offset_left = 685.0
 offset_top = 550.0
 offset_right = 1235.0
 offset_bottom = 750.0
-color = Color(0.290196, 0.964706, 0.14902, 1)
+color = Color(0.226967, 0.74717, 0.121913, 1)
 
 [node name="MenuBoxInner" type="ColorRect" parent="MenuBox"]
 layout_mode = 0
@@ -151,8 +130,8 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
-theme_override_colors/font_color = Color(0.290196, 0.964706, 0.14902, 1)
-theme_override_fonts/font = SubResource("SystemFont_l28s4")
+theme_override_colors/font_color = Color(0.227451, 0.74902, 0.121569, 1)
+theme_override_fonts/font = ExtResource("2_p3svu")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxEmpty_2iauo")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2iauo")
@@ -173,8 +152,8 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
-theme_override_colors/font_color = Color(0.290196, 0.964706, 0.14902, 1)
-theme_override_fonts/font = SubResource("SystemFont_34wrt")
+theme_override_colors/font_color = Color(0.227451, 0.74902, 0.121569, 1)
+theme_override_fonts/font = ExtResource("2_p3svu")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxEmpty_w7vye")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_g7qen")
@@ -199,13 +178,15 @@ script = ExtResource("2_w8s8c")
 layout_mode = 0
 offset_left = 10.0
 offset_top = 210.0
-offset_right = 540.0
+offset_right = 551.0
 offset_bottom = 237.0
-theme_override_colors/default_color = Color(0.290196, 0.964706, 0.14902, 1)
-theme_override_fonts/normal_font = SubResource("SystemFont_beb17")
+theme_override_colors/default_color = Color(0.227451, 0.74902, 0.121569, 1)
+theme_override_fonts/normal_font = ExtResource("5_wtkrs")
 theme_override_font_sizes/normal_font_size = 21
 text = "Pilot your vessel using WASD or arrow keys"
 
+[connection signal="mouse_entered" from="MenuBox/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="MenuBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="MenuBox/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="MenuBox/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="timeout" from="MenuBox/ChevronTimer" to="MenuBox/ChevronLabel" method="_on_chevron_timer_timeout"]

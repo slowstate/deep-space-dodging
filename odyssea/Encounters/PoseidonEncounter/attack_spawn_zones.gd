@@ -9,15 +9,6 @@ const POSEIDON_STAB_ATTACK = preload("res://Encounters/PoseidonEncounter/Poseido
 const POSEIDON_SWEEP_ATTACK = preload("res://Encounters/PoseidonEncounter/Poseidon/Attacks/Sweep/poseidon_sweep_attack.tscn")
 const POSEIDON_ASTEROID_ATTACK = preload("res://Encounters/PoseidonEncounter/Poseidon/Attacks/Asteroid/poseidon_asteroid_attack.tscn")
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func begin_spawning():
 	attack_timer.wait_time = 0.05 # A miniscule wait time is required to start the attack_timer effective immediately
 	attack_timer.start()

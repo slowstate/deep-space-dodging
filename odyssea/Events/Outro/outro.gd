@@ -11,10 +11,10 @@ var MAIN_MENU = load("res://Menus/main_menu.tscn")
 func _ready() -> void:
 	fade_in_timer.start()
 	Dialog.dialog_complete.connect(on_dialog_complete)
-
+	AudioPlayer.play_sound("VoidMusic", 10.0, 10.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !fade_in_timer.is_stopped():
 		fade_in_rect.color.a = fade_in_timer.time_left/fade_in_timer.wait_time
 	if !fade_out_timer.is_stopped():
@@ -32,4 +32,6 @@ func on_dialog_complete(dialog_key: String) -> void:
 
 
 func _on_fade_out_timer_timeout() -> void:
+	AudioPlayer.stop_sound("VoidMusic")
+	AudioPlayer.stop_sound("SpaceAmbienceSFX")
 	get_tree().change_scene_to_packed(MAIN_MENU)

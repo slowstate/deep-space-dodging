@@ -2,13 +2,10 @@
 
 [ext_resource type="Script" path="res://Events/PlayerKilled/player_killed.gd" id="1_fo5x6"]
 [ext_resource type="Script" path="res://Events/PlayerKilled/killed_label.gd" id="1_rfjam"]
-
-[sub_resource type="SystemFont" id="SystemFont_1pnxt"]
-font_names = PackedStringArray("Constantia")
-subpixel_positioning = 0
+[ext_resource type="FontFile" uid="uid://2q0n6dvgr2n3" path="res://Common/Fonts/constan.ttf" id="2_i1cp7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ymv3k"]
-font = SubResource("SystemFont_1pnxt")
+font = ExtResource("2_i1cp7")
 font_size = 48
 font_color = Color(1, 1, 1, 0)
 

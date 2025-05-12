@@ -8,6 +8,6 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !killed_label_timer.is_stopped():
 		label_settings.font_color.a = 1 - killed_label_timer.time_left/killed_label_timer.wait_time

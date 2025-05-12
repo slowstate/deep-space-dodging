@@ -1,52 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cbgl7gohoc2pf"]
+[gd_scene load_steps=18 format=3 uid="uid://cbgl7gohoc2pf"]
 
 [ext_resource type="Script" path="res://Events/MaelstromBridge/maelstrom_bridge.gd" id="1_yfhop"]
 [ext_resource type="Shader" path="res://Events/MaelstromBridge/maelstrom_bridge.gdshader" id="3_ft2rl"]
-[ext_resource type="Texture2D" uid="uid://ck2v8mmdar3bo" path="res://Events/MaelstromBridge/concept-of-communication-abstract-monochrome-narrow-flowing-lines-seamless-loop-animation-black-and-white-fiber-internet-and-digit.jpg" id="4_7kxbp"]
-[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/Ship.png" id="4_dauif"]
-[ext_resource type="Texture2D" uid="uid://b11qaaf7oi6ua" path="res://Events/MaelstromBridge/abstract-short-narrow-lines-of-white-color-flowing-from-the-bottom-to-the-top-on-black-background-seamless-loop-animation-monochro.jpg" id="4_h3kkh"]
+[ext_resource type="Texture2D" uid="uid://cjax824eyl1sq" path="res://Events/MaelstromBridge/maelstrom_bridge.png" id="4_0a078"]
+[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/ship.png" id="4_dauif"]
 [ext_resource type="Script" path="res://Events/MaelstromBridge/player.gd" id="5_kx2r8"]
-
-[sub_resource type="Gradient" id="Gradient_r33tn"]
-offsets = PackedFloat32Array(0.155738, 0.163934, 0.237705, 0.622951)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0.760246, 0.175015, 1, 1, 0.0431373, 0.0431373, 0.0431373, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0p6yt"]
-gradient = SubResource("Gradient_r33tn")
-width = 512
-height = 512
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_xlii0"]
-offsets = PackedFloat32Array(0.0655738, 0.434426, 0.827869, 1)
-colors = PackedColorArray(0.0431373, 0.0431373, 0.0431373, 1, 0.525639, 0.0614136, 0.781827, 1, 0.980143, 0.320993, 0.957387, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2ke6f"]
-gradient = SubResource("Gradient_xlii0")
-width = 512
-
-[sub_resource type="Gradient" id="Gradient_wakb0"]
-offsets = PackedFloat32Array(0.147541, 0.188525, 0.696721)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_s148q"]
-gradient = SubResource("Gradient_wakb0")
-width = 512
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_683s8"]
-shader = ExtResource("3_ft2rl")
-shader_parameter/extra_power = 1.0
-shader_parameter/effect_scale = 1.0
-shader_parameter/effect_repeat = 1.0
-shader_parameter/effect_centre = Vector2(0.5, 0.5)
-shader_parameter/scroll_speed = Vector2(0.03, 0.6)
-shader_parameter/image_texture = ExtResource("4_h3kkh")
-shader_parameter/image_multiplier = SubResource("GradientTexture2D_s148q")
-shader_parameter/image_add = SubResource("GradientTexture2D_0p6yt")
-shader_parameter/image_gradient_tint = SubResource("GradientTexture1D_2ke6f")
 
 [sub_resource type="Gradient" id="Gradient_to754"]
 offsets = PackedFloat32Array(0.155738, 0.163934, 0.237705, 0.622951)
@@ -81,15 +39,42 @@ fill_from = Vector2(0.5, 0.5)
 shader = ExtResource("3_ft2rl")
 shader_parameter/extra_power = 1.0
 shader_parameter/effect_scale = 1.0
-shader_parameter/effect_repeat = 3.0
+shader_parameter/effect_repeat = 2.0
 shader_parameter/effect_centre = Vector2(0.5, 0.5)
-shader_parameter/scroll_speed = Vector2(-0.3, 0.6)
-shader_parameter/image_texture = ExtResource("4_7kxbp")
+shader_parameter/scroll_speed = Vector2(-0.05, 0.3)
+shader_parameter/image_texture = ExtResource("4_0a078")
 shader_parameter/image_multiplier = SubResource("GradientTexture2D_e2k1v")
 shader_parameter/image_add = SubResource("GradientTexture2D_ih0cj")
 shader_parameter/image_gradient_tint = SubResource("GradientTexture1D_y63hj")
 
+[sub_resource type="Gradient" id="Gradient_csfh0"]
+offsets = PackedFloat32Array(0, 0.414894, 0.659574, 0.851064, 1)
+colors = PackedColorArray(0.454524, 0.454524, 0.454524, 1, 1, 1, 1, 1, 1, 1, 1, 0.566502, 0, 0, 0, 0.428571, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wo3jr"]
+gradient = SubResource("Gradient_csfh0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ap5d"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 1, 0)
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_wo3jr")
+
+[sub_resource type="Gradient" id="Gradient_hk5ba"]
+offsets = PackedFloat32Array(0.00793651)
+colors = PackedColorArray(1, 0.560784, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wirsi"]
+gradient = SubResource("Gradient_hk5ba")
+width = 2
+height = 2
+
 [node name="MaelstromBridge" type="Node2D"]
+position = Vector2(0, -1)
 script = ExtResource("1_yfhop")
 
 [node name="PlayableArea" type="ColorRect" parent="."]
@@ -106,14 +91,6 @@ offset_bottom = 1080.0
 color = Color(0.0431373, 0.0431373, 0.0431373, 1)
 
 [node name="MaelstromBridge" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_683s8")
-offset_left = 560.0
-offset_top = 50.0
-offset_right = 1360.0
-offset_bottom = 850.0
-
-[node name="MaelstromBridge2" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_onxa3")
 offset_left = 560.0
 offset_top = 50.0
@@ -126,6 +103,32 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_dauif")
 script = ExtResource("5_kx2r8")
 
+[node name="ThrusterLeftParticles" type="GPUParticles2D" parent="Player"]
+position = Vector2(-3.5, 12)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_7ap5d")
+texture = SubResource("GradientTexture2D_wirsi")
+visibility_rect = Rect2(-1000, -1000, 2000, 20000)
+
+[node name="ThrusterRightParticles" type="GPUParticles2D" parent="Player"]
+position = Vector2(3.5, 12)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_7ap5d")
+texture = SubResource("GradientTexture2D_wirsi")
+lifetime = 3.0
+visibility_rect = Rect2(-1000, -1000, 2000, 20000)
+
+[node name="FadeInTimer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="FadeInRect" type="ColorRect" parent="."]
+z_index = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
 [node name="FadeOutTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
@@ -136,16 +139,5 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 
-[node name="FadeInTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
-[node name="FadeInRect" type="ColorRect" parent="."]
-z_index = 2
-offset_right = 1920.0
-offset_bottom = 1080.0
-color = Color(0, 0, 0, 1)
-
-[connection signal="timeout" from="FadeOutTimer" to="." method="_on_fade_out_timer_timeout"]
 [connection signal="timeout" from="FadeInTimer" to="." method="_on_fade_in_timer_timeout"]
+[connection signal="timeout" from="FadeOutTimer" to="." method="_on_fade_out_timer_timeout"]

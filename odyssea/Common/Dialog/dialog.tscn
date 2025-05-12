@@ -1,24 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://crxuthvtr3hvh"]
+[gd_scene load_steps=6 format=3 uid="uid://crxuthvtr3hvh"]
 
 [ext_resource type="Script" path="res://Common/Dialog/dialog.gd" id="1_tchp8"]
-
-[sub_resource type="SystemFont" id="SystemFont_pxrgb"]
-font_names = PackedStringArray("Monospace")
-font_weight = 550
+[ext_resource type="FontFile" uid="uid://d30lsvvnwjsg3" path="res://Common/Fonts/courbd.ttf" id="2_8cg35"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3d3dd"]
-font = SubResource("SystemFont_pxrgb")
+font = ExtResource("2_8cg35")
 font_size = 25
 font_color = Color(0.290196, 0.964706, 0.14902, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_oi0xh"]
-font_names = PackedStringArray("Monospace")
-font_weight = 550
 
 [sub_resource type="LabelSettings" id="LabelSettings_2hdqe"]
-font = SubResource("SystemFont_oi0xh")
+font = ExtResource("2_8cg35")
 font_size = 25
-font_color = Color(0.290196, 0.964706, 0.14902, 1)
+font_color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2a0u"]
 size = Vector2(1200, 250)
@@ -36,7 +29,7 @@ offset_top = -130.0
 offset_right = 605.0
 offset_bottom = 130.0
 mouse_filter = 2
-color = Color(0.290196, 0.964706, 0.14902, 1)
+color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [node name="DialogBackground" type="ColorRect" parent="."]
 offset_left = -600.0
