@@ -190,6 +190,7 @@ fixed_fps = 0
 visibility_rect = Rect2(-960, -540, 1920, 1080)
 
 [node name="Poseidon" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(951, 1056)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("3_spvk0")

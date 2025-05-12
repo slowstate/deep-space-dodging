@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cli47i1rl5e7h"]
+[gd_scene load_steps=17 format=3 uid="uid://cli47i1rl5e7h"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_6jmc1"]
 [ext_resource type="FontFile" uid="uid://2q0n6dvgr2n3" path="res://Common/Fonts/constan.ttf" id="2_cvrqq"]
 [ext_resource type="FontFile" uid="uid://d30lsvvnwjsg3" path="res://Common/Fonts/courbd.ttf" id="2_p3svu"]
 [ext_resource type="Script" path="res://Menus/start_chevron_label.gd" id="2_w8s8c"]
+[ext_resource type="FontFile" uid="uid://07ehdcxnx4n6" path="res://Common/Fonts/courbi.ttf" id="5_wtkrs"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4un3s"]
 particles_animation = true
@@ -177,10 +178,10 @@ script = ExtResource("2_w8s8c")
 layout_mode = 0
 offset_left = 10.0
 offset_top = 210.0
-offset_right = 540.0
+offset_right = 551.0
 offset_bottom = 237.0
 theme_override_colors/default_color = Color(0.227451, 0.74902, 0.121569, 1)
-theme_override_fonts/normal_font = ExtResource("2_p3svu")
+theme_override_fonts/normal_font = ExtResource("5_wtkrs")
 theme_override_font_sizes/normal_font_size = 21
 text = "Pilot your vessel using WASD or arrow keys"
 
