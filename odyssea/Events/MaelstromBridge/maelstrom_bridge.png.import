@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6fo77i3x310"
-path="res://.godot/imported/FogShaderMask.png-d32b864091ac3acc632c0bec44313f75.ctex"
+uid="uid://cjax824eyl1sq"
+path="res://.godot/imported/maelstrom_bridge.png-21d48b360bf2065f7becd2d5c046e0dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Encounters/PoseidonEncounter/FogShaderMask.png"
-dest_files=["res://.godot/imported/FogShaderMask.png-d32b864091ac3acc632c0bec44313f75.ctex"]
+source_file="res://Events/MaelstromBridge/maelstrom_bridge.png"
+dest_files=["res://.godot/imported/maelstrom_bridge.png-21d48b360bf2065f7becd2d5c046e0dd.ctex"]
 
 [params]
 

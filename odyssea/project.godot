@@ -13,7 +13,7 @@ config_version=5
 config/name="Odyssea"
 run/main_scene="res://Menus/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://Player/Ship.png"
+config/icon="res://Player/ship.png"
 
 [autoload]
 

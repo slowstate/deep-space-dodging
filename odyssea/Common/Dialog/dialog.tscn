@@ -18,7 +18,7 @@ font_weight = 550
 [sub_resource type="LabelSettings" id="LabelSettings_2hdqe"]
 font = SubResource("SystemFont_oi0xh")
 font_size = 25
-font_color = Color(0.290196, 0.964706, 0.14902, 1)
+font_color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2a0u"]
 size = Vector2(1200, 250)
@@ -36,7 +36,7 @@ offset_top = -130.0
 offset_right = 605.0
 offset_bottom = 130.0
 mouse_filter = 2
-color = Color(0.290196, 0.964706, 0.14902, 1)
+color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [node name="DialogBackground" type="ColorRect" parent="."]
 offset_left = -600.0

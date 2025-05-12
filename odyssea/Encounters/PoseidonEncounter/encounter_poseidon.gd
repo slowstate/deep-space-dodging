@@ -1,9 +1,8 @@
 extends Node2D
 
 @onready var player: CharacterBody2D = $Player
-@onready var shield_label: Label = $UI/ShieldLabel
-@onready var shield_sprite: Sprite2D = $UI/ShieldSprite
-@onready var attack_spawner: Node2D = $AttackSpawner
+@onready var shield_bar: ColorRect = $UI/ShieldBar
+@onready var shield_bar_meter: ColorRect = $UI/ShieldBar/ShieldBarMeter
 @onready var encounter_timer: Timer = $EncounterTimer
 @onready var playable_area: CollisionShape2D = $PlayableBoundary/PlayableArea
 @onready var attack_timer: Timer = $AttackTimer
@@ -14,6 +13,7 @@ extends Node2D
 @onready var unknown_ship_grab_move_timer: Timer = $UnknownShipGrabMoveTimer
 @onready var fog_shader: ColorRect = $FogShader
 @onready var fog_shader_fade_in_timer: Timer = $FogShaderFadeInTimer
+@onready var fog_and_attack_fade_out_timer: Timer = $FogAndAttackFadeOutTimer
 @onready var encounter_fade_out_timer: Timer = $EncounterFadeOutTimer
 @onready var player_move_timer: Timer = $PlayerMoveTimer
 @onready var fade_out_victory_timer: Timer = $FadeOutVictoryTimer
@@ -28,14 +28,11 @@ const POSEIDON_ASTEROID_ATTACK = preload("res://Encounters/PoseidonEncounter/Pos
 const MAELSTROM_BRIDGE = preload("res://Events/MaelstromBridge/maelstrom_bridge.tscn")
 const PLAYER_KILLED = preload("res://Events/PlayerKilled/player_killed.tscn")
 
-var player_killed = false
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Dialog.dialog_complete.connect(on_dialog_complete)
 	Dialog.play_dialog("poseidon introduction")
-	shield_label.visible = false
-	shield_sprite.visible = false
+	shield_visible(false)
 	poseidon_stab_attack.visible = false
 	poseidon_stab_attack.process_mode = Node.PROCESS_MODE_DISABLED # The poseidon_stab_attack for the intro is an actual attack; this line pauses it until later
 	AudioPlayer.play_sound("MaydayMusic", 10.0, 10.0)
@@ -51,23 +48,25 @@ func _process(delta: float) -> void:
 		unknown_ship.modulate.a = unknown_ship_grab_move_timer.time_left/unknown_ship_grab_move_timer.wait_time
 	
 	# Poseidon victory animation
-	if !encounter_fade_out_timer.is_stopped(): # Animation for moving the ship out of the screen
+	if !fog_and_attack_fade_out_timer.is_stopped(): # Animation for moving the ship out of the screen
 		for node in get_tree().get_nodes_in_group("attacks"):
-			node.modulate.a = pow(encounter_fade_out_timer.time_left/encounter_fade_out_timer.wait_time, 3)
-		var player_new_scale = lerp(1.0, 0.4, 1.0 - encounter_fade_out_timer.time_left/encounter_fade_out_timer.wait_time)
+			node.modulate.a = pow(fog_and_attack_fade_out_timer.time_left/fog_and_attack_fade_out_timer.wait_time, 3)
+	if !encounter_fade_out_timer.is_stopped():
+		var player_new_scale = lerp(1.0, 0.6, 1.0 - encounter_fade_out_timer.time_left/encounter_fade_out_timer.wait_time)
 		player.scale = Vector2(player_new_scale, player_new_scale)
-		# TODO: Move player down as zooming out
-		#player.position.y -= lerp(1.0 - player_move_timer.time_left/player_move_timer.wait_time)
 	if !player_move_timer.is_stopped():
-		player.position.y -= pow(1.0 - player_move_timer.time_left/player_move_timer.wait_time, 7) * 100000 * delta
+		player.position.y -= (ease(1.0 - player_move_timer.time_left/player_move_timer.wait_time, 5.0)*10000)*delta
+		AudioPlayer.get_sound("ThrustersSFX").volume_db = linear_to_db(1.0 - ease(1.0 - 	player_move_timer.time_left/player_move_timer.wait_time, 2.0))
 
-	# Player shield logic
-	shield_label.text = str(player.current_shield)
-	shield_label.label_settings.font_color = Color.WHITE
+	# Player shield meter logic
+	shield_bar_meter.scale.x = float(player.current_shield)/float(player.MAX_SHIELD)
 	match player.status:
-		player.Statuses.None: shield_label.label_settings.font_color = Color.WHITE
-		player.Statuses.HitImmune: shield_label.label_settings.font_color = Color.RED
-		player.Statuses.ShieldRecharging: shield_label.label_settings.font_color = Color(0.0, 0.9, 0.9)
+		player.Statuses.None:
+			shield_bar_meter.color = Color(0.227, 0.749, 0.122, 0.8)
+		player.Statuses.HitImmune:
+			shield_bar_meter.color = Color(1.0, 1.0, 1.0, 0.8)
+		player.Statuses.ShieldRecharging:
+			shield_bar_meter.color = Color(0.0, 0.7, 0.7, 0.8)
 
 func on_dialog_complete(dialog_key: String):
 	match dialog_key:
@@ -76,13 +75,14 @@ func on_dialog_complete(dialog_key: String):
 			poseidon_stab_attack.process_mode = Node.PROCESS_MODE_INHERIT # Resumes the poseidon_stab_attack animation
 			unknown_ship_grab_timer.start() # This timer is to accommodate for the charge + stab time of the poseidon_stab_attack
 			Dialog.play_dialog("poseidon encounter")
+			await get_tree().create_timer(1).timeout # Plays the PlayerHitSFX after 0.9 seconds, when the unknown ship is grabbed 
+			AudioPlayer.play_sound("PlayerHitSFX", -2.0, -2.0)
 		"poseidon encounter":
 			fog_shader_fade_in_timer.stop()
 			fog_shader.set_opacity(1.0)
 			poseidon.modulate.a = 1.0
-			attack_spawner.begin_spawning()
-			shield_label.visible = true
-			shield_sprite.visible = true
+			begin_spawning()
+			shield_visible(true)
 			encounter_timer.start() # Encounter time set on $EncounterTimer node
 			AudioPlayer.stop_sound("MaydayMusic")
 			AudioPlayer.play_sound("PoseidonMusic", 10.0, 10.0)
@@ -96,26 +96,30 @@ func _on_unknown_ship_grab_timer_timeout() -> void:
 	unknown_ship_grab_move_timer.start()
 
 func _on_encounter_timer_timeout() -> void:
-	if !player_killed:
-		attack_timer.stop()
+	attack_timer.stop()
+	player.enable_hitbox(false)
+	player.enable_collision(false)
+	player.enable_controls(false)
+	shield_visible(false)
+	fog_and_attack_fade_out_timer.start()
+
+func _on_fog_fade_out_timer_timeout() -> void:
+	if !player.is_killed:
+		player.enable_thruster_particles(true, 0.3)
+		AudioPlayer.play_sound("ThrustersSFX", -10.0, -10.0)
 		encounter_fade_out_timer.start()
 		var stars_p: ParticleProcessMaterial = stars_particles.process_material
 		stars_p.radial_velocity_min = -15
 		stars_p.radial_velocity_max = -10
-		player.enable_hitbox(false)
-		player.enable_collision(false)
-		player.enable_controls(false)
-		shield_label.visible = false
-		shield_sprite.visible = false
 		AudioPlayer.play_sound("RumblingSFX", 10.0, 10.0)
-
+	
 func _on_encounter_fade_out_timer_timeout() -> void:
 	var stars_p: ParticleProcessMaterial = stars_particles.process_material
 	stars_p.radial_velocity_min = 0
 	stars_p.radial_velocity_max = 0
 	player_move_timer.start()
+	player.enable_thruster_particles(true, 1.0)
 	AudioPlayer.stop_sound("RumblingSFX")
-	AudioPlayer.play_sound("ThrustersSFX")
 	
 func _on_player_move_timer_timeout() -> void:
 	fade_out_victory_timer.start()
@@ -126,9 +130,7 @@ func _on_fade_out_victory_timer_timeout() -> void:
 	get_tree().change_scene_to_packed(MAELSTROM_BRIDGE)
 
 func _on_player_killed() -> void:
-	player_killed = true
-	shield_label.visible = false
-	shield_sprite.visible = false
+	shield_visible(false)
 	player.enable_hitbox(false)
 	player.enable_collision(false)
 	player.enable_controls(false)
@@ -136,6 +138,10 @@ func _on_player_killed() -> void:
 
 func _on_fade_out_player_killed_timer_timeout() -> void:
 	get_tree().change_scene_to_packed(PLAYER_KILLED)
+
+
+func shield_visible(enabled: bool):
+	shield_bar.visible = enabled
 
 func begin_spawning():
 	attack_timer.wait_time = 0.05 # A miniscule wait time is required to start the attack_timer effective immediately
@@ -202,7 +208,7 @@ func spawn_stab_attack():
 	if spawn_position.y >= playable_area.global_position.y + playable_area.shape.get_rect().size.y/2 - 50: y_rotation = 0
 	if spawn_position.y <= playable_area.global_position.y - playable_area.shape.get_rect().size.y/2 + 50: y_rotation = 180
 	if x_rotation > 0 && y_rotation > 0:
-		new_stab_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2)
+		new_stab_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2.0)
 	else: new_stab_attack.rotation = deg_to_rad(x_rotation + y_rotation)
 	new_stab_attack.add_to_group("attacks")
 	add_child(new_stab_attack)
@@ -229,7 +235,7 @@ func spawn_sweep_attack():
 	if spawn_position.y >= playable_area.global_position.y + playable_area.shape.get_rect().size.y/2 - 50: y_rotation = 0
 	if spawn_position.y <= playable_area.global_position.y - playable_area.shape.get_rect().size.y/2 + 50: y_rotation = 180
 	if x_rotation > 0 && y_rotation > 0:
-		new_sweep_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2)
+		new_sweep_attack.rotation = deg_to_rad((x_rotation + y_rotation)/2.0)
 	else: new_sweep_attack.rotation = deg_to_rad(x_rotation + y_rotation)
 	new_sweep_attack.add_to_group("attacks")
 	add_child(new_sweep_attack)

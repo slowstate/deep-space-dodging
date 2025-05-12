@@ -1,19 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkplfc4s2mslk"]
+[gd_scene load_steps=34 format=3 uid="uid://dkplfc4s2mslk"]
 
 [ext_resource type="PackedScene" uid="uid://diui5swt03bhu" path="res://Player/player.tscn" id="1_3o0o0"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/encounter_poseidon.gd" id="1_t7sp0"]
-[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/playable_boundary.gd" id="2_3lvl7"]
 [ext_resource type="Texture2D" uid="uid://o8o5fjfvgidh" path="res://Encounters/PoseidonEncounter/Poseidon/Poseidon_2_scaled_up.png" id="3_qggth"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/poseidon.gd" id="3_spvk0"]
-[ext_resource type="Script" path="res://Encounters/PoseidonEncounter/attack_spawn_zones.gd" id="4_cm8cc"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/fog_shader.gd" id="4_dy2jo"]
 [ext_resource type="Shader" path="res://Encounters/PoseidonEncounter/encounter_poseidon_fog.gdshader" id="5_et2rs"]
-[ext_resource type="Texture2D" uid="uid://c6fo77i3x310" path="res://Encounters/PoseidonEncounter/FogShaderMask.png" id="6_u2haf"]
+[ext_resource type="Texture2D" uid="uid://lisq7pcg13ck" path="res://Encounters/PoseidonEncounter/fog_shader_mask.png" id="6_2rbu2"]
 [ext_resource type="PackedScene" uid="uid://n03c1hqo8bh1" path="res://Encounters/PoseidonEncounter/Poseidon/Attacks/Stab/poseidon_stab_attack.tscn" id="7_56rb6"]
-[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/Ship.png" id="8_rfh22"]
+[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/ship.png" id="8_rfh22"]
 [ext_resource type="Script" path="res://Encounters/PoseidonEncounter/fade_out_rect.gd" id="10_jcw7n"]
 [ext_resource type="AudioStream" uid="uid://b8kuysrstc8t" path="res://Audio/SFX/PlayerHit.mp3" id="11_m2avu"]
-[ext_resource type="Texture2D" uid="uid://bc5nt1peagrkq" path="res://Player/Shield.png" id="12_14fsk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aft7f"]
 size = Vector2(500, 500)
@@ -73,17 +70,74 @@ shader_parameter/q_color = Color(0.8, 0.25, 1, 1)
 shader_parameter/f_color = Color(1, 1, 1, 1)
 shader_parameter/brightness = 0.8
 shader_parameter/contrast = 0.25
-shader_parameter/maskImage = ExtResource("6_u2haf")
+shader_parameter/maskImage = ExtResource("6_2rbu2")
 
-[sub_resource type="LabelSettings" id="LabelSettings_fcel1"]
-font_size = 35
+[sub_resource type="Gradient" id="Gradient_qkbb0"]
+offsets = PackedFloat32Array(0, 0.212766, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cfwel"]
+gradient = SubResource("Gradient_qkbb0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ki44o"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_cfwel")
+
+[sub_resource type="Gradient" id="Gradient_xcoin"]
+offsets = PackedFloat32Array(0, 0.571429, 1)
+colors = PackedColorArray(0.996078, 1, 1, 0.866667, 1, 1, 0, 0.301961, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gyhoi"]
+gradient = SubResource("Gradient_xcoin")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.489474, 0.542105)
+
+[sub_resource type="Gradient" id="Gradient_m2h0b"]
+offsets = PackedFloat32Array(0, 0.148936, 0.840426, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h2gus"]
+gradient = SubResource("Gradient_m2h0b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pyylq"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+angular_velocity_min = -500.0
+angular_velocity_max = 500.0
+radial_velocity_min = 4.99998
+radial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_h2gus")
+
+[sub_resource type="Gradient" id="Gradient_vexoh"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.560784, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g7gkx"]
+gradient = SubResource("Gradient_vexoh")
+width = 2
+height = 2
+
+[sub_resource type="Gradient" id="Gradient_4biku"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 0.59, 0.866667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r5nip"]
+gradient = SubResource("Gradient_4biku")
+width = 2
+height = 2
 
 [node name="EncounterPoseidon" type="Node2D"]
 script = ExtResource("1_t7sp0")
 
 [node name="PlayableBoundary" type="Area2D" parent="."]
 position = Vector2(960, 700)
-script = ExtResource("2_3lvl7")
 
 [node name="ColorRect" type="ColorRect" parent="PlayableBoundary"]
 offset_left = -250.0
@@ -164,6 +218,27 @@ rotation = 3.14159
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_rfh22")
 
+[node name="ExplosionParticles" type="GPUParticles2D" parent="UnknownShip"]
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_ki44o")
+texture = SubResource("GradientTexture2D_gyhoi")
+lifetime = 0.2
+fixed_fps = 0
+
+[node name="OrangeSparkParticles" type="GPUParticles2D" parent="UnknownShip"]
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_pyylq")
+texture = SubResource("GradientTexture2D_g7gkx")
+lifetime = 0.5
+fixed_fps = 0
+
+[node name="YellowSparkParticles" type="GPUParticles2D" parent="UnknownShip"]
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_pyylq")
+texture = SubResource("GradientTexture2D_r5nip")
+lifetime = 0.5
+fixed_fps = 0
+
 [node name="UnknownShipMoveTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
@@ -190,24 +265,28 @@ motion_mode = 1
 position = Vector2(-960, -700)
 stream = ExtResource("11_m2avu")
 
-[node name="AttackSpawner" type="Node2D" parent="."]
-position = Vector2(960, 700)
-script = ExtResource("4_cm8cc")
-
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
+
+[node name="Stage2AttackTimer" type="Timer" parent="."]
+wait_time = 33.47
 one_shot = true
 
 [node name="EncounterTimer" type="Timer" parent="."]
 wait_time = 60.0
 one_shot = true
 
-[node name="AttackFadeOutTimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="FogAndAttackFadeOutTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [node name="EncounterFadeOutTimer" type="Timer" parent="."]
 wait_time = 5.0
+one_shot = true
+
+[node name="AttackFadeOutTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [node name="PlayerMoveTimer" type="Timer" parent="."]
@@ -221,21 +300,35 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ShieldLabel" type="Label" parent="UI"]
-visible = false
+[node name="ShieldBar" type="ColorRect" parent="UI"]
 layout_mode = 0
-offset_left = 1122.0
-offset_top = 958.0
-offset_right = 1210.0
-offset_bottom = 1007.0
-text = "5"
-label_settings = SubResource("LabelSettings_fcel1")
+offset_left = 1055.0
+offset_top = 965.0
+offset_right = 1195.0
+offset_bottom = 1000.0
+color = Color(0.227451, 0.74902, 0.121569, 1)
 
-[node name="ShieldSprite" type="Sprite2D" parent="UI"]
-visible = false
-position = Vector2(1169, 982)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("12_14fsk")
+[node name="ShieldBarInner" type="ColorRect" parent="UI/ShieldBar"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 135.0
+offset_bottom = 30.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="UI/ShieldBar/ShieldBarInner"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 25.0
+color = Color(0, 0, 0, 1)
+
+[node name="ShieldBarMeter" type="ColorRect" parent="UI/ShieldBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 130.0
+offset_bottom = 25.0
+color = Color(0.8, 0.8, 0.8, 0.5)
 
 [node name="FadeOutVictoryTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -252,16 +345,14 @@ offset_bottom = 1080.0
 color = Color(0, 0, 0, 0)
 script = ExtResource("10_jcw7n")
 
-[node name="Stage2AttackTimer" type="Timer" parent="."]
-wait_time = 33.67
-one_shot = true
-
 [connection signal="timeout" from="UnknownShipGrabTimer" to="." method="_on_unknown_ship_grab_timer_timeout"]
 [connection signal="killed" from="Player" to="." method="_on_player_killed"]
-[connection signal="timeout" from="AttackTimer" to="AttackSpawner" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Stage2AttackTimer" to="." method="_on_stage_2_attack_timer_timeout"]
 [connection signal="timeout" from="EncounterTimer" to="." method="_on_encounter_timer_timeout"]
+[connection signal="timeout" from="FogAndAttackFadeOutTimer" to="." method="_on_fog_fade_out_timer_timeout"]
 [connection signal="timeout" from="EncounterFadeOutTimer" to="." method="_on_encounter_fade_out_timer_timeout"]
+[connection signal="timeout" from="EncounterFadeOutTimer" to="Poseidon" method="_on_encounter_fade_out_timer_timeout"]
 [connection signal="timeout" from="PlayerMoveTimer" to="." method="_on_player_move_timer_timeout"]
 [connection signal="timeout" from="FadeOutVictoryTimer" to="." method="_on_fade_out_victory_timer_timeout"]
 [connection signal="timeout" from="FadeOutPlayerKilledTimer" to="." method="_on_fade_out_player_killed_timer_timeout"]
-[connection signal="timeout" from="Stage2AttackTimer" to="." method="_on_stage_2_attack_timer_timeout"]

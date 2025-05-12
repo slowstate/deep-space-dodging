@@ -14,7 +14,7 @@ func _ready() -> void:
 	AudioPlayer.play_sound("VoidMusic", 10.0, 10.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !fade_in_timer.is_stopped():
 		fade_in_rect.color.a = fade_in_timer.time_left/fade_in_timer.wait_time
 	if !fade_out_timer.is_stopped():

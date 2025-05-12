@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bc5nt1peagrkq"
-path="res://.godot/imported/Shield.png-278de370fb1439bb878450902e799ee6.ctex"
+uid="uid://lisq7pcg13ck"
+path="res://.godot/imported/fog_shader_mask.png-367e0f26a4fc0221d4ca3a2586dca473.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Shield.png"
-dest_files=["res://.godot/imported/Shield.png-278de370fb1439bb878450902e799ee6.ctex"]
+source_file="res://Encounters/PoseidonEncounter/fog_shader_mask.png"
+dest_files=["res://.godot/imported/fog_shader_mask.png-367e0f26a4fc0221d4ca3a2586dca473.ctex"]
 
 [params]
 

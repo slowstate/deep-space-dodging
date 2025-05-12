@@ -1,14 +1,97 @@
-[gd_scene load_steps=3 format=3 uid="uid://diui5swt03bhu"]
+[gd_scene load_steps=20 format=3 uid="uid://diui5swt03bhu"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7f6xr"]
-[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/Ship.png" id="2_2bi72"]
+[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/ship.png" id="2_2bi72"]
+[ext_resource type="Shader" path="res://Player/player.gdshader" id="2_prsfi"]
+
+[sub_resource type="Gradient" id="Gradient_0l2xl"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.5, 0.5, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f3f2r"]
+gradient = SubResource("Gradient_0l2xl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubi6r"]
+shader = ExtResource("2_prsfi")
+shader_parameter/mask_gradient = SubResource("GradientTexture1D_f3f2r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6iaep"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_46513"]
+offsets = PackedFloat32Array(0, 0.571429, 1)
+colors = PackedColorArray(0.996078, 1, 1, 0.866667, 1, 1, 0, 0.301961, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_je3nx"]
+gradient = SubResource("Gradient_46513")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.489474, 0.542105)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_togt8"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+angular_velocity_min = -500.0
+angular_velocity_max = 500.0
+radial_velocity_min = 4.99998
+radial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_j45po"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.560784, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o0l0u"]
+gradient = SubResource("Gradient_j45po")
+width = 2
+height = 2
+
+[sub_resource type="Gradient" id="Gradient_6e5ak"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 0.59, 0.866667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8he0i"]
+gradient = SubResource("Gradient_6e5ak")
+width = 2
+height = 2
+
+[sub_resource type="Gradient" id="Gradient_notf7"]
+offsets = PackedFloat32Array(0, 0.414894, 0.659574, 0.851064, 1)
+colors = PackedColorArray(0.454524, 0.454524, 0.454524, 1, 1, 1, 1, 1, 0, 0, 0, 0.566502, 0, 0, 0, 0.676, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tv3rk"]
+gradient = SubResource("Gradient_notf7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pcibw"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 1, 0)
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_tv3rk")
+
+[sub_resource type="Gradient" id="Gradient_0dewo"]
+offsets = PackedFloat32Array(0.00793651)
+colors = PackedColorArray(1, 0.560784, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a244e"]
+gradient = SubResource("Gradient_0dewo")
+width = 2
+height = 2
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 5
 script = ExtResource("1_7f6xr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1, 0)
+material = SubResource("ShaderMaterial_ubi6r")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_2bi72")
 
@@ -28,12 +111,56 @@ polygon = PackedVector2Array(-3, -14, 0, -26, 3, -14, 16, -3, 16, 1, 11, -1, 9, 
 wait_time = 2.0
 one_shot = true
 
+[node name="HitStunTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="ShieldRechargeStartTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
 [node name="ShieldRechargeTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="."]
+visible = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_6iaep")
+texture = SubResource("GradientTexture2D_je3nx")
+lifetime = 0.2
+fixed_fps = 0
+
+[node name="OrangeSparkParticles" type="GPUParticles2D" parent="."]
+visible = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_togt8")
+texture = SubResource("GradientTexture2D_o0l0u")
+lifetime = 0.5
+fixed_fps = 0
+
+[node name="YellowSparkParticles" type="GPUParticles2D" parent="."]
+visible = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_togt8")
+texture = SubResource("GradientTexture2D_8he0i")
+lifetime = 0.5
+fixed_fps = 0
+
+[node name="ThrusterLeftParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-3.5, 18)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_pcibw")
+texture = SubResource("GradientTexture2D_a244e")
+lifetime = 3.0
+visibility_rect = Rect2(-1000, -1000, 2000, 20000)
+
+[node name="ThrusterRightParticles" type="GPUParticles2D" parent="."]
+position = Vector2(3.5, 18)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_pcibw")
+texture = SubResource("GradientTexture2D_a244e")
+lifetime = 3.0
+visibility_rect = Rect2(-1000, -1000, 2000, 20000)
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

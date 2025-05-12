@@ -23,8 +23,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("player_accept") || Input.is_action_just_pressed("player_mouse_accept"):
-		AudioPlayer.play_sound("ButtonClickSFX")
 		if current_dialog_key != "":
+			AudioPlayer.play_sound("ButtonClickSFX", -2.0, -2.0, 1.0, 1.01)
 			if dialog_label.visible_characters < current_dialog_line.length(): # If displaying letter by letter then skip
 				dialog_label.visible_characters = current_dialog_line.length()
 			elif current_dialog_sequence.size() > 0: #  If lines still left to display then display next line
@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	if t >= 0.01: # Display a character every 10 ms
 		if dialog_label.visible_characters < current_dialog_line.length():
 			if current_dialog_line.contains("\""): dialog_label.label_settings.font_color = Color.WHITE
-			else: dialog_label.label_settings.font_color = Color(0.29, 0.965, 0.149)
+			else: dialog_label.label_settings.font_color = Color(0.227, 0.749, 0.122)
 			dialog_label.visible_characters += 1
 			t = 0.0
 			ellipses_label.visible = false

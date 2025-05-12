@@ -45,14 +45,14 @@ shadow_size = 11
 shadow_color = Color(3.85046e-07, 0.379517, 0.204635, 1)
 shadow_offset = Vector2(7, 3)
 
-[sub_resource type="SystemFont" id="SystemFont_dvon3"]
+[sub_resource type="SystemFont" id="SystemFont_ewgf0"]
 font_names = PackedStringArray("Monospace")
 font_weight = 550
 
 [sub_resource type="LabelSettings" id="LabelSettings_6wime"]
-font = SubResource("SystemFont_dvon3")
+font = SubResource("SystemFont_ewgf0")
 font_size = 25
-font_color = Color(0.290196, 0.964706, 0.14902, 1)
+font_color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_l28s4"]
 font_names = PackedStringArray("Monospace")
@@ -75,7 +75,7 @@ font_weight = 550
 [sub_resource type="LabelSettings" id="LabelSettings_7jakx"]
 font = SubResource("SystemFont_gcn0r")
 font_size = 25
-font_color = Color(0.290196, 0.964706, 0.14902, 1)
+font_color = Color(0.227451, 0.74902, 0.121569, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_beb17"]
 font_names = PackedStringArray("Monospace")
@@ -119,7 +119,7 @@ offset_left = 685.0
 offset_top = 550.0
 offset_right = 1235.0
 offset_bottom = 750.0
-color = Color(0.290196, 0.964706, 0.14902, 1)
+color = Color(0.226967, 0.74717, 0.121913, 1)
 
 [node name="MenuBoxInner" type="ColorRect" parent="MenuBox"]
 layout_mode = 0
@@ -151,7 +151,7 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
-theme_override_colors/font_color = Color(0.290196, 0.964706, 0.14902, 1)
+theme_override_colors/font_color = Color(0.227451, 0.74902, 0.121569, 1)
 theme_override_fonts/font = SubResource("SystemFont_l28s4")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxEmpty_2iauo")
@@ -173,7 +173,7 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
-theme_override_colors/font_color = Color(0.290196, 0.964706, 0.14902, 1)
+theme_override_colors/font_color = Color(0.227451, 0.74902, 0.121569, 1)
 theme_override_fonts/font = SubResource("SystemFont_34wrt")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxEmpty_w7vye")
@@ -201,11 +201,13 @@ offset_left = 10.0
 offset_top = 210.0
 offset_right = 540.0
 offset_bottom = 237.0
-theme_override_colors/default_color = Color(0.290196, 0.964706, 0.14902, 1)
+theme_override_colors/default_color = Color(0.227451, 0.74902, 0.121569, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_beb17")
 theme_override_font_sizes/normal_font_size = 21
 text = "Pilot your vessel using WASD or arrow keys"
 
+[connection signal="mouse_entered" from="MenuBox/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="MenuBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="MenuBox/ExitButton" to="." method="_on_exit_button_mouse_entered"]
 [connection signal="pressed" from="MenuBox/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="timeout" from="MenuBox/ChevronTimer" to="MenuBox/ChevronLabel" method="_on_chevron_timer_timeout"]

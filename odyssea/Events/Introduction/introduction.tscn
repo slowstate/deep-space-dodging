@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlu5f2iw00lrd"]
 
 [ext_resource type="Script" path="res://Events/Introduction/introduction.gd" id="1_e2m0l"]
-[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/Ship.png" id="2_cwona"]
+[ext_resource type="Texture2D" uid="uid://dl8yem5hvdoh2" path="res://Player/ship.png" id="2_cwona"]
 [ext_resource type="Script" path="res://Events/Introduction/player.gd" id="3_e1r4m"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hxmuj"]

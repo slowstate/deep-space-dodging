@@ -16,7 +16,10 @@ func play_sound(audio_stream_string: String, volume_db_min: float = 0.0, volume_
 	audio_stream.volume_db = randf_range(volume_db_min, volume_db_max)
 	audio_stream.pitch_scale = randf_range(pitch_scale_min, pitch_scale_max)
 	audio_stream.play()
-	
+
+func get_sound(audio_stream_string: String) -> AudioStreamPlayer2D:
+	return Audio.get(audio_stream_string)
+
 func stop_sound(audio_stream_string: String):
 	if Audio.has(audio_stream_string):
 		Audio.get(audio_stream_string).stop()
